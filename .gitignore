@@ -1,0 +1,20 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+.venv
+env/
+
+
+.vscode/
+.idea/
+.DS_Store
+
+
+*.joblib
+*.h5
+*.model
+
+ocal_fallback.db
