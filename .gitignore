@@ -17,4 +17,4 @@ env/
 *.h5
 *.model
 
-ocal_fallback.db
+local_fallback.db
