@@ -6,7 +6,7 @@
 [![Railway](https://img.shields.io/badge/Railway-131415?style=for-the-badge&logo=railway&logoColor=white)](https://railway.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-An enterprise-grade, high-performance REST API built with **FastAPI** that serves two distinct, production-ready Machine Learning models. This system features fully isolated layers following **Clean Architecture** principles, robust **JWT Authentication**, and automated CI/CD deployment.
+An enterprise-grade, high-performance REST API built with **FastAPI** that serves two distinct, production-ready Machine Learning models. This system features fully isolated layers following **Clean Architecture** principles, robust **JWT Authentication**, and deployment.
 
 🌐 **Live Production Link:** [Deploy on Railway 🚀](https://ml-via-api-production.up.railway.app/docs#/)
 
