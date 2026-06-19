@@ -15,7 +15,7 @@ class UserRepository(UserRepositoryInterface):
             return None
         return db_user
     def create_user(self, username: str, hashed_password: str):
-        new_user = UsersTable(username= username, Hashed_password=hashed_password)
+        new_user = UsersTable(username= username, hashed_password=hashed_password)
 
         self.db.add(new_user)
         self.db.commit()
