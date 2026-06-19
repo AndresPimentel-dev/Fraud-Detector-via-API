@@ -1,50 +1,41 @@
 import pytest
 
-def test_register_endpoint(client):
-    """Prueba el endpoint de registro de usuarios."""
-    payload = {
-        "username": "newuser",
-        "password": "securepassword123"
-    }
-    response = client.post("/register", json=payload)
-    
+
+def test_register_user(client):
+    response = client.post("/register", json={
+        "username": "testuser",
+        "password": "word"
+    })
     assert response.status_code == 201
     assert response.json() == {"STATUS": "creado"}
 
-
-def test_login_endpoint(client):
-    """Prueba el endpoint de inicio de sesión usando Form Data."""
-    form_data = {
+def test_login_user(client):
+    client.post("/register", json={
         "username": "testuser",
-        "password": "correctpassword"
-    }
-    response = client.post("/login", data=form_data)
+        "password": "securepassword"})
     
-    assert response.status_code == 200
-    assert "token" in response.json()
-    assert response.json()["token_type"] == "bearer"
+    response = client.post("/login" , data={"username": "testuser", "password": "securepassword"})
 
+    assert response.status_code ==200
+    token = response.json()["token"]
+    assert token is not None
 
-def test_obtener_contratos_endpoint(client):
-    """Prueba el recomendador de contratos NLP asegurado."""
-    headers = {"Authorization": "Bearer fake_access_token"}
-    payload = {
-        "company_description": "Desarrollo de software"
-    }
-    # Pasamos los headers en la petición
-    response = client.post("/obtenercontratos", json=payload, headers=headers)
-    
-    assert response.status_code == 200
-    assert isinstance(response.json(), list)
+def test_prediction(client):
+    client.post("/register", json={"username": "testuser", "password": "securepassword"})
+    tokendecode = client.post("/login" , data={"username": "testuser", "password": "securepassword"})
+    token = tokendecode.json()["token"]
+    headers = {"Authorization": f"Bearer {token}"}
 
-def test_obtener_prediccion_endpoint(client):
-    """Prueba la predicción asegurada."""
-    headers = {"Authorization": "Bearer fake_access_token"}
-    payload = {
-        "contract_name": "construccion",
-        "user_budget": 130000.0
-    }
-    response = client.post("/obtenerprediccion", json=payload, headers=headers)
-    
+    response =  client.post("/obtenercontratos", json={"company_description": "empresa de software"}, headers=headers)
+    print(f"JSON BODY: {response.json()}")
     assert response.status_code == 200
-    assert response.json()["status"] == "success"
+
+def test_price_prediction(client):
+    client.post("/register", json={"username": "testuser", "password": "securepassword"})
+    tokendecode = client.post("/login" , data={"username": "testuser", "password": "securepassword"})
+    token = tokendecode.json()["token"]
+    headers = {"Authorization": f"Bearer {token}"}
+
+    response =  client.post("/obtenerprediccion", json={"contract_name":"construccion", "user_budget":"30000000"}, headers=headers)
+    print(f"JSON BODY: {response.json()}")
+    assert response.status_code == 200

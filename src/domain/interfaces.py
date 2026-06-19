@@ -12,7 +12,7 @@ class UserRepositoryInterface(ABC):
 
 class PasswordHasher(ABC):
     @abstractmethod
-    def get_password_hash(self, password:str ) -> str:
+    def get_password_hash(self, plain_password:str ) -> str:
         pass
     @abstractmethod
     def verify_password(self, plain_password: str, hashed_password: str):

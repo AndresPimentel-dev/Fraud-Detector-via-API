@@ -14,10 +14,10 @@ class UserCases:
         existing_username = self.user_repo.get_by_username(username=username)
         if existing_username:
             return None
-        hashed_password = self.pwd_hs.get_password_hash(password=password)
-        new_user = User(None, username, hashed_password)
-        self.user_repo.create_user(new_user)
-        return self.tk_ct.create_token(data={"sub": new_user.username})
+        hashed_password = self.pwd_hs.get_password_hash(plain_password=password)
+        
+        self.user_repo.create_user(username=username, hashed_password=hashed_password)
+        return self.tk_ct.create_token(data={"sub": username})
     
     def login_user(self, username:str, password:str):
         user = self.user_repo.get_by_username(username=username)

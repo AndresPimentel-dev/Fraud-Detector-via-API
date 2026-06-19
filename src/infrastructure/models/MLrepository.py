@@ -27,7 +27,7 @@ dfFNC = pd.read_csv(os.path.join(BASE_DIR, 'datosNLPlimp.csv'), usecols=[
 class PredictionProvider(PredictionService):
 
     def get_contracts(self, company_description: str):
-        X_trasformed = NLPpreprocessor.trasform([company_description])
+        X_trasformed = NLPpreprocessor.transform([company_description])
 
         similares = cosine_similarity(X_trasformed, NLPmodel).flatten()
         dfNLP['similaridad'] = similares

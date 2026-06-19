@@ -35,7 +35,7 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), auth_use_case: UserC
     user = auth_use_case.login_user(form_data.username, form_data.password)
     if not user:
         raise HTTPException(status_code=400, detail="INCORRECT")
-    token = token_use.create_token(data= {"sub": user.username})
+    token = token_use.create_token(data= {"sub": form_data.username})
     return {"token": token, "token_type": "bearer"}
 
 

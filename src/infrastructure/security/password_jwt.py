@@ -9,14 +9,20 @@ from src.domain.interfaces import PasswordHasher, TokenService
 
 
 
+
+
 class HashProvider(PasswordHasher):
-    def __init__(self):
-        self.pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-    def get_password_hash(self, plain_password: str):
-        return self.pwd_context.hash(plain_password)
+    def get_password_hash(self, plain_password: str) -> str:
+        # Truncate to 72 bytes
+        safe_password = plain_password[:72].encode('utf-8')
+        # Use bcrypt directly to hash
+        hashed = bcrypt.hashpw(safe_password, bcrypt.gensalt())
+        return hashed.decode('utf-8')
+
     def verify_password(self, plain_password: str, hashed_password: str) -> bool:
-        return self.pwd_context.verify(plain_password, hashed_password)
-    
+        safe_password = plain_password[:72].encode('utf-8')
+        # Use bcrypt to check
+        return bcrypt.checkpw(safe_password, hashed_password.encode('utf-8'))
 
     
 class TokenServices(TokenService):

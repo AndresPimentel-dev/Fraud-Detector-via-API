@@ -14,8 +14,8 @@ from src.infrastructure.models.MLrepository import PredictionProvider
 
 load_dotenv()
 
-SECRET_KEY = os.getenv("SECRET_KEY")
-
+#SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = "asfwete45wty"
 ALGORITHM = "HS256"
 
 ACCESS_TOKEN_EXPIRE = 30
@@ -34,7 +34,7 @@ def get_currrent_user(token: str = Depends(oauth2_scheme), db: Session = Depends
     if not decode:
         return None
     repo = UserRepository(db)
-    username = repo.get_username(decode)
+    username = repo.get_by_username(decode)
     if not username:
         return None
     return username
