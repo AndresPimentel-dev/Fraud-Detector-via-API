@@ -22,5 +22,5 @@ Este proyecto está configurado para ejecutarse rápidamente mediante **Docker C
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone <tu-url-repositorio>
+   git clone <[tu-url-repositorio](https://github.com/AndresPimentel-dev/ML-via-API)>
    cd <nombre-carpeta>
