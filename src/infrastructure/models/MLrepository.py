@@ -4,11 +4,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 import os
 
 from src.domain.interfaces import PredictionService
-
-current_dir = os.path.dirname(os.path.abspath(__file__))
         
         # 2. Unir la ruta con el nombre del archivo (están juntos)
-model_path = os.path.join(current_dir, 'modelo_fraude.pkl')
+model_path = '/app/src/infrastructure/models/ml_fraudv1.pkl'
         
 
 ##################################################################

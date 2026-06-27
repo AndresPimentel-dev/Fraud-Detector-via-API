@@ -1,0 +1,21 @@
+services:
+  api:
+    build: .
+    container_name: ml_api
+    environment:
+      - RAWDBURL=postgresql://ml_user:contrasena_segura@ml_database/ml_database
+      - SECRET_KEY=asdkjasdb354345
+      - MODEL_PATH=/src/infrastructure/models/ml_fraudv1
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+  database:
+    image: postgres:15
+    container_name: ml_database
+    environment:
+      POSTGRES_USER: ml_user
+      POSTGRES_PASSWORD: contrasena_segura
+      POSTGRES_DB: ml_database
+    ports:
+      - "5433:5434"
