@@ -8,10 +8,6 @@ class User:
     hashed_password : str
 
 @dataclass
-class ContractChooserImput:
-    cmp_description: str
+class Transaccion:
+    tsn_description: Optional[dict]
 
-@dataclass
-class BudgetPrdtImput:
-    contract_name: str
-    user_budget: float

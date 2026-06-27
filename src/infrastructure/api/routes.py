@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
-from src.infrastructure.api.schemas import UserCreate, ContractChooserImput, BudgetPredictorImput, TokenResponse
+from src.infrastructure.api.schemas import UserCreate, Transaccion, TokenResponse
 from src.use_cases.user_cases import UserCases
 from src.use_cases.prediction_cases import PredictionUseCase
 from src.infrastructure.database.connection import get_db
@@ -38,15 +38,9 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), auth_use_case: UserC
     token = token_use.create_token(data= {"sub": form_data.username})
     return {"token": token, "token_type": "bearer"}
 
-
-
 #endpoints de prediccion
 
-@router.post("/obtenercontratos", status_code=200)
-def prediction_contracs(data:ContractChooserImput, current_user: User = Depends(get_currrent_user), predict_case: PredictionUseCase = Depends(get_predictions_case)):
-    return predict_case.get_contracts(data.company_description)
-
 @router.post("/obtenerprediccion", status_code=200)
-def prediction(data: BudgetPredictorImput, current_user: User = Depends(get_currrent_user), predict_case: PredictionUseCase = Depends(get_predictions_case)):
-    return predict_case.get_prediction(data.contract_name, data.user_budget)
-
+def prediction(data: Transaccion, current_user: User = Depends(get_currrent_user), predict_case: PredictionUseCase = Depends(get_predictions_case)):
+    data_dict = data.dict(by_alias=True)
+    return predict_case.get_prediction(data_dict)

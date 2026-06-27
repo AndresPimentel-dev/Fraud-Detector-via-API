@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Optional
-from src.domain.entities import User
+from src.domain.entities import User, Transaccion
 
 class UserRepositoryInterface(ABC):
     @abstractmethod
@@ -28,8 +28,5 @@ class TokenService(ABC):
 
 class PredictionService(ABC):
     @abstractmethod
-    def get_contracts(self, company_description: str):
-        pass
-    @abstractmethod
-    def get_prediction(self, contract_name : str, user_budget: float):
+    def get_prediction(self, transaccion: Optional[Transaccion]):
         pass
