@@ -11,6 +11,10 @@ jobs:
     backend-validation:
         runs-on: ubuntu-latest
 
+        env:
+            POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+            SECRET_KEY: ${{ secrets.SECRET_KEY }}
+
         steps:
         - name: Descargar codigo del repositorio
           uses: actions/checkout@v4
